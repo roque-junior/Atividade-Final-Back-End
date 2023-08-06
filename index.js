@@ -23,6 +23,11 @@ let identificadorUnicoRecado = 0;
 // body.nome
 // body.senha
 // body.email: deve ser unico
+app.get("/", function (requisicao,resposta){
+  resposta.status(200).send("Bem Vindo ao Api!");
+})
+
+
 app.post("/usuarios", function (requisicao, resposta) {
   // VALIDACÕES
 
