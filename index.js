@@ -16,7 +16,36 @@ let identificadorUnicoUsuario = 0;
 //recado.titulo
 //recado.descricao
 //recado.identificador
-const recados = [];
+const recados = [
+  {
+    titulo : "home",
+    descricao : "euuuuuu preciso de ajuda",
+    id: 1,
+    identificadorUnicoUsuario: 1
+},
+
+{
+  titulo : "sergio",
+  descricao : "sergio preciso de ajuda",
+  id: 2,
+  identificadorUnicoUsuario: 1
+},
+
+{
+  titulo : "bruna",
+  descricao : "bruna preciso de ajuda",
+  id: 3,
+  identificadorUnicoUsuario: 1
+},
+
+{
+  titulo : "gabriel",
+  descricao : "yuri preciso de ajuda",
+  id: 4,
+  identificadorUnicoUsuario: 1
+},
+
+];
 let identificadorUnicoRecado = 0;
 
 // deve receber um json no body com as seguintes propriedades
@@ -102,12 +131,19 @@ app.post("/recados", function (requisicao, resposta) {
   }
 });
 
-app.get("/recados", function (requisicao, resposta) {
-  //tentar adicionar um filtro opicional para o titulo
-  resposta.json({
-    quantidade: recados.length,
-    recados: recados,
-  });
+app.get("/recados", function (req, resposta) {
+  // listando todos os recados com suporte à paginação
+const perPage = 2;
+const page = parseInt(req.query.page) || 1;
+const startIndex = (page - 1) * perPage;
+const endIndex = startIndex + perPage;
+
+const recadosPaginados = recados.slice(startIndex, endIndex);
+
+resposta.json({
+  quantidade: recados.length,
+  recados: recadosPaginados,
+});
 });
 
 app.get("/recados/:id", function (requisicao, resposta) {
